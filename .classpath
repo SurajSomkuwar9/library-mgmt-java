@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="library_managment/mysql-connector-java-8.0.12/src/build/java"/>
+	<classpathentry kind="src" path="library_managment/mysql-connector-java-8.0.12/src/demo/java"/>
+	<classpathentry kind="src" path="library_managment/mysql-connector-java-8.0.12/src/generated/java"/>
+	<classpathentry kind="src" path="library_managment/mysql-connector-java-8.0.12/src/legacy/java"/>
+	<classpathentry kind="src" path="library_managment/mysql-connector-java-8.0.12/src/main/core-api/java"/>
+	<classpathentry kind="src" path="library_managment/mysql-connector-java-8.0.12/src/main/core-impl/java"/>
+	<classpathentry kind="src" path="library_managment/mysql-connector-java-8.0.12/src/main/protocol-impl/java"/>
+	<classpathentry kind="src" path="library_managment/mysql-connector-java-8.0.12/src/main/user-api/java"/>
+	<classpathentry kind="src" path="library_managment/mysql-connector-java-8.0.12/src/main/user-impl/java"/>
+	<classpathentry kind="src" path="library_managment/mysql-connector-java-8.0.12/src/test/java"/>
+	<classpathentry kind="src" path="library_managment/src"/>
+	<classpathentry kind="lib" path="library_managment/mysql-connector-java-8.0.12/lib/c3p0-0.9.1-pre6.jar"/>
+	<classpathentry kind="lib" path="library_managment/mysql-connector-java-8.0.12/lib/jboss-common-jdbc-wrapper.jar"/>
+	<classpathentry kind="lib" path="library_managment/mysql-connector-java-8.0.12/lib/jboss-common-jdbc-wrapper-src.jar"/>
+	<classpathentry kind="lib" path="library_managment/mysql-connector-java-8.0.12/lib/protobuf-java-2.6.0.jar"/>
+	<classpathentry kind="lib" path="library_managment/mysql-connector-java-8.0.12/lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="library_managment/mysql-connector-java-8.0.12/mysql-connector-java-8.0.12.jar"/>
+	<classpathentry kind="lib" path="library_managment.jar"/>
+	<classpathentry kind="lib" path="mysql-connector-java-8.0.12.jar"/>
+	<classpathentry kind="lib" path="mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="output" path="library_managment/build/classes"/>
+</classpath>
