@@ -52,11 +52,11 @@ CREATE TABLE login (
 
 
 -- DELETE FROM lib_users WHERE userId = 'sejal90';
-
 select * from lib_users;
 select * from login;
 select * from issue_staff;
 select * from issues;
+select * from lib_books;
 
 -- DELETE FROM lib_users WHERE userId = 'rajat';
 -- DELETE FROM login WHERE id = 'rajat4';
