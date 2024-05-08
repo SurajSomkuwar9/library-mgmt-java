@@ -7,6 +7,9 @@
 package library.managment;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import java.security.MessageDigest; 
+import java.security.NoSuchAlgorithmException;
+//import org.springframework.security.crypto.bcrypt.BCrypt;
 /**
  *
  * @author Suraj
@@ -196,7 +199,8 @@ public class create_user extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String userId = jTextField1.getText();
-        String password = jPasswordField1.getText();
+        String password = passwordHash(jPasswordField1.getText());
+        //String password = jPasswordField1.getText();
         String userType =(String)jComboBox4.getSelectedItem();
         String name = jTextField3.getText();
         //int DOB =Integer.parseInt(jTextField4.getText());
@@ -212,8 +216,10 @@ public class create_user extends javax.swing.JFrame {
         String q="insert into lib_users values ('"+userId+"','"+name+"','"+address+"','"+userType+"','"+year+'-'+month+'-'+date+"')";
         //String query="select * from USER where user_id='"+s1+"' AND password='"+s2+"';";
         stmt.executeUpdate(q);
-        q = "insert into login values('"+userId+"','"+password+"','user');";
-        stmt.executeUpdate(q);
+        String q1 = "insert into login values('"+userId+"','"+password+"','user');";
+        //q = "insert into login values('"+userId+"','"+password+"','user');";
+        PreparedStatement pst=con.prepareStatement(q1);
+        pst.execute();
         JOptionPane.showMessageDialog(this, "USER HAS BEEN ADDED");
         jTextField1.setText("");
         jPasswordField1.setText("");
@@ -221,20 +227,40 @@ public class create_user extends javax.swing.JFrame {
         jTextField5.setText("");
         }
         catch (Exception x)
-{
-    JOptionPane.showMessageDialog(this,x.getMessage());
+        {
+            JOptionPane.showMessageDialog(this,x.getMessage());
 
-    }//GEN-LAST:event_jButton1ActionPerformed
-    }
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+            }//GEN-LAST:event_jButton1ActionPerformed
+            }
+            private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+                // TODO add your handling code here:
+                this.dispose();
+            }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
+     // Method to hash passwords using MessageDigest
+    public static String passwordHash(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA");
+            md.update(password.getBytes());
+            byte[] rbt = md.digest();
+            StringBuilder sb = new StringBuilder();
+
+            for (byte b : rbt) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            // Handle exceptions, if any
+        }
+        return null;
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */

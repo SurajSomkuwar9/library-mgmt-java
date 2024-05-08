@@ -5,8 +5,12 @@
  */
 package library.managment;
 import java.awt.HeadlessException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.sql.ResultSet;
+import static library.managment.create_user.passwordHash;
 /**
  *
  * @author Suraj
@@ -53,6 +57,12 @@ public class login extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("PASSWORD");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("LOGIN");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -156,7 +166,8 @@ public class login extends javax.swing.JFrame {
         jRadioButton1.setActionCommand("user");
         jRadioButton2.setActionCommand("staff");
         jRadioButton3.setActionCommand("admin");
-        String password = jPasswordField1.getText();
+        //String password = jPasswordField1.getText();
+        String password = passwordHash(jPasswordField1.getText());
         String userName = jTextField1.getText();
         String loginType = buttonGroup1.getSelection().getActionCommand();
         String sql = "select * from login where id=? and password=? and loginType=?";
@@ -167,7 +178,7 @@ public class login extends javax.swing.JFrame {
             pst.setString(1,userName);
             pst.setString(2,password);
             pst.setString(3,loginType);
-            rs = pst.executeQuery();
+            ResultSet rs = pst.executeQuery();
             if(rs.next())
             {
                 if("admin".equals(loginType))
@@ -189,6 +200,24 @@ public class login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+         // Method to hash passwords using MessageDigest
+    public static String passwordHash(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA");
+            md.update(password.getBytes());
+            byte[] rbt = md.digest();
+            StringBuilder sb = new StringBuilder();
+
+            for (byte b : rbt) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            // Handle exceptions, if any
+        }
+        return null;
+    }
+   
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         jPasswordField1.setText("");
@@ -199,6 +228,10 @@ public class login extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments

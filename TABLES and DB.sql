@@ -57,3 +57,6 @@ select * from lib_users;
 select * from login;
 select * from issue_staff;
 select * from issues;
+
+-- DELETE FROM lib_users WHERE userId = 'rajat';
+-- DELETE FROM login WHERE id = 'rajat4';
