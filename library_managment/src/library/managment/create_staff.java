@@ -184,7 +184,8 @@ public class create_staff extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String userId = jTextField1.getText();
+        String staffId = jTextField1.getText();
+        String userId = staffId;
         String password = passwordHash2(jPasswordField1.getText());
         //String password = jPasswordField1.getText();
         String name = jTextField3.getText();
@@ -198,11 +199,9 @@ public class create_staff extends javax.swing.JFrame {
         Class.forName("java.sql.DriverManager");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBMS_Project","root", "root");
         Statement stmt = con.createStatement();
-        String q = "insert into issue_staff values ('"+userId+"','"+name+"','"+address+"','"+year+'-'+month+'-'+date+"')";
-        //String query="select * from USER where user_id='"+s1+"' AND password='"+s2+"';";
+        String q = "insert into issue_staff values ('"+staffId+"','"+name+"','"+address+"','"+year+'-'+month+'-'+date+"')";
         stmt.executeUpdate(q);
-        String q1 = "insert into login values('"+userId+"','"+password+"','user');";
-        //q = "insert into login values('"+userId+"','"+password+"','user');";
+        String q1 = "insert into login values('"+userId+"','"+password+"','staff');";
         PreparedStatement pst=con.prepareStatement(q1);
         pst.execute();
         JOptionPane.showMessageDialog(this, "STAFF MEMBER HAS BEEN ADDED");
