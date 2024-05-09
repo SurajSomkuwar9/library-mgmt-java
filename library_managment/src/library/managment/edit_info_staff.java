@@ -181,18 +181,18 @@ public class edit_info_staff extends javax.swing.JFrame {
         Class.forName("java.sql.DriverManager");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBMS_Project","root", "root");
         Statement stmt = con.createStatement();
-        String q="update issue_staff ";
-        if(Add.length()>0 || Date.length()>0){
-            q+= "set ";
-        }if(Add.length()>0){
-            q+="address='"+Add+"'";
-            if(Date.length() > 0)
-            q += ", ";
-        }if(Date.length()>0){
-            q+="dob='"+Date+"' ";
+        String q = "UPDATE issue_staff SET ";
+        if (Add.length() > 0) {
+            q += "address='" + Add + "'";
+            if (Date.length() > 0)
+                q += ", ";
         }
-        q+="where staffId='"+uName+"';";
+        if (Date.length() > 0) {
+            q += "dob='" + Date + "'";
+        }
+        q += " WHERE staffId='" + uName + "'";
         stmt.executeUpdate(q);
+        JOptionPane.showMessageDialog(this, "Updated Successfully");
         }
         catch (Exception x)
 {

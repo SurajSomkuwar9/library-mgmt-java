@@ -193,19 +193,20 @@ public class edit_info_user extends javax.swing.JFrame {
         Class.forName("java.sql.DriverManager");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBMS_Project","root", "root");
         Statement stmt = con.createStatement();
-        String q="update lib_users";
-        if(Add.length()>0 || Date.length()>0){
-            q+= "set ";
-        }if(Add.length()>0){
-            countT++;
-            q+="address='"+Add+"'";
-        }if(countT > 0 && Date.length() > 0)
-            q += ", ";
-        if(Date.length()>0){
-            q+="dob='"+Date+"' ";
+        String q = "UPDATE lib_users SET ";
+        if (Add.length() > 0) {
+            q += "address='" + Add + "'";
+            if (Date.length() > 0)
+                q += ", ";
         }
-        q+="where userId='"+uName+"';";
+        if (Date.length() > 0) {
+            q += "dob='" + Date + "'";
+        }
+        q += " WHERE userId='" + uName + "'";
+
         stmt.executeUpdate(q);
+        //success message
+        JOptionPane.showMessageDialog(this, "Updated Successfully");
         }
         catch (Exception x)
 {

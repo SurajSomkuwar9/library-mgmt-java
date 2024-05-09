@@ -185,7 +185,7 @@ public class create_staff extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String userId = jTextField1.getText();
-        String password = passwordHash(jPasswordField1.getText());
+        String password = passwordHash2(jPasswordField1.getText());
         //String password = jPasswordField1.getText();
         String name = jTextField3.getText();
         String date=(String)jComboBox1.getSelectedItem();
@@ -227,7 +227,7 @@ public class create_staff extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
          // Method to hash passwords using MessageDigest
-    public static String passwordHash(String password) {
+    public static String passwordHash2(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA");
             md.update(password.getBytes());

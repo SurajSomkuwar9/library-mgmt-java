@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 import java.sql.ResultSet;
 import static library.managment.create_user.passwordHash;
+import static library.managment.create_staff.passwordHash2;
 /**
  *
  * @author Suraj
@@ -166,10 +167,16 @@ public class login extends javax.swing.JFrame {
         jRadioButton1.setActionCommand("user");
         jRadioButton2.setActionCommand("staff");
         jRadioButton3.setActionCommand("admin");
-        //String password = jPasswordField1.getText();
-        String password = passwordHash(jPasswordField1.getText());
-        String userName = jTextField1.getText();
+       //String password = passwordHash(jPasswordField1.getText());
         String loginType = buttonGroup1.getSelection().getActionCommand();
+        String password;
+        if ("staff".equals(loginType)) {
+        	password = passwordHash2(jPasswordField1.getText());
+        } else {
+        	password = passwordHash(jPasswordField1.getText());
+        }
+        String userName = jTextField1.getText();
+
         String sql = "select * from login where id=? and password=? and loginType=?";
         try{
             //Class.forName("com.mysql.jdbc.Driver");
@@ -217,7 +224,25 @@ public class login extends javax.swing.JFrame {
         }
         return null;
     }
-   
+ 
+	    // Method to hash passwords using MessageDigest
+	public static String passwordHash2(String password) {
+	   try {
+	       MessageDigest md = MessageDigest.getInstance("SHA");
+	       md.update(password.getBytes());
+	       byte[] rbt = md.digest();
+	       StringBuilder sb = new StringBuilder();
+	
+	       for (byte b : rbt) {
+	           sb.append(String.format("%02x", b));
+	       }
+	       return sb.toString();
+	   } catch (NoSuchAlgorithmException e) {
+	       // Handle exceptions, if any
+	   }
+	   return null;
+	}
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         jPasswordField1.setText("");
