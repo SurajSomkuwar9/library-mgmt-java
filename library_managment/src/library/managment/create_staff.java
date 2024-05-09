@@ -7,6 +7,8 @@
 package library.managment;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 /**
  *
  * @author Suraj
@@ -93,6 +95,12 @@ public class create_staff extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Password");
 
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
+
         jButton2.setText("CLOSE");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,7 +185,8 @@ public class create_staff extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String userId = jTextField1.getText();
-        String password = jPasswordField1.getText();
+        String password = passwordHash(jPasswordField1.getText());
+        //String password = jPasswordField1.getText();
         String name = jTextField3.getText();
         String date=(String)jComboBox1.getSelectedItem();
         String month=(String)jComboBox2.getSelectedItem();
@@ -192,8 +201,10 @@ public class create_staff extends javax.swing.JFrame {
         String q = "insert into issue_staff values ('"+userId+"','"+name+"','"+address+"','"+year+'-'+month+'-'+date+"')";
         //String query="select * from USER where user_id='"+s1+"' AND password='"+s2+"';";
         stmt.executeUpdate(q);
-        q = "insert into login values('" +userId+ "','" +password+ "','staff')";
-        stmt.executeUpdate(q);
+        String q1 = "insert into login values('"+userId+"','"+password+"','user');";
+        //q = "insert into login values('"+userId+"','"+password+"','user');";
+        PreparedStatement pst=con.prepareStatement(q1);
+        pst.execute();
         JOptionPane.showMessageDialog(this, "STAFF MEMBER HAS BEEN ADDED");
         jTextField1.setText("");
         jPasswordField1.setText("");
@@ -214,6 +225,28 @@ public class create_staff extends javax.swing.JFrame {
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
+
+         // Method to hash passwords using MessageDigest
+    public static String passwordHash(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA");
+            md.update(password.getBytes());
+            byte[] rbt = md.digest();
+            StringBuilder sb = new StringBuilder();
+
+            for (byte b : rbt) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            // Handle exceptions, if any
+        }
+        return null;
+    }
+    
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     /**
      * @param args the command line arguments
